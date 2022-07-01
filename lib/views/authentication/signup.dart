@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_login/constant.dart';
+import 'package:flutter_ui_login/services/authservises.dart';
+import 'package:flutter_ui_login/views/quize/home.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -6,6 +9,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  var token, email, password, name;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -31,7 +35,7 @@ class _SignupPageState extends State<SignupPage> {
                         style: TextStyle(
                             fontSize: 80.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.green),
+                            color: maincolore),
                       ),
                     )
                   ],
@@ -42,6 +46,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: Column(
                     children: <Widget>[
                       TextField(
+                        onChanged: (value) => email = value,
                         decoration: InputDecoration(
                             labelText: 'EMAIL',
                             labelStyle: TextStyle(
@@ -55,6 +60,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 10.0),
                       TextField(
+                        onChanged: (value) => password = value,
                         decoration: InputDecoration(
                             labelText: 'PASSWORD ',
                             labelStyle: TextStyle(
@@ -67,6 +73,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 10.0),
                       TextField(
+                        onChanged: (value) => name = value,
                         decoration: InputDecoration(
                             labelText: 'NICK NAME ',
                             labelStyle: TextStyle(
@@ -74,7 +81,7 @@ class _SignupPageState extends State<SignupPage> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
                             focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green))),
+                                borderSide: BorderSide(color: maincolore1))),
                       ),
                       SizedBox(height: 50.0),
                       Container(
@@ -82,15 +89,30 @@ class _SignupPageState extends State<SignupPage> {
                           child: Material(
                             borderRadius: BorderRadius.circular(20.0),
                             shadowColor: Colors.greenAccent,
-                            color: Colors.green,
+                            color: maincolore,
                             elevation: 7.0,
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                AuthServises()
+                                    .signup(name, email, password)
+                                    .then((val) {
+                                  if (val.data['token'].length > 0) {
+                                    token = val.data['token'];
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            Home(user: val.data['name']),
+                                      ),
+                                    );
+                                  }
+                                });
+                              },
                               child: Center(
                                 child: Text(
                                   'SIGNUP',
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: maincolore1,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Montserrat'),
                                 ),
@@ -124,9 +146,9 @@ class _SignupPageState extends State<SignupPage> {
                 ],
               ),
               SizedBox(height: 20.0),
+              SizedBox(height: 50.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Text(
                     'BY ',
@@ -140,7 +162,7 @@ class _SignupPageState extends State<SignupPage> {
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       color: Colors.black,
-                      fontSize: 27,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

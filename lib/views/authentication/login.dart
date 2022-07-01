@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_login/constant.dart';
+import 'package:flutter_ui_login/services/authservises.dart';
+//import 'package:flutter_ui_login/views/quize/home.dart';
+import 'package:flutter_ui_login/views/quize/questions.dart';
 
 class Login extends StatefulWidget {
   const Login({Key key}) : super(key: key);
@@ -8,9 +12,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  var token, email, password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: maincolore1,
         resizeToAvoidBottomInset: false,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -19,7 +25,8 @@ class _LoginState extends State<Login> {
               child: Stack(
                 children: <Widget>[
                   Container(
-                    child: Image(image: AssetImage('assets/main.png')),
+                    child: Image(
+                        image: AssetImage('assets/main.png'), height: 200),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(15.0, 30.0, 0.0, 0.0),
@@ -50,25 +57,29 @@ class _LoginState extends State<Login> {
                   children: <Widget>[
                     TextField(
                       decoration: InputDecoration(
-                          labelText: 'EMAIL',
-                          labelStyle: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green))),
+                        labelText: 'EMAIL',
+                        labelStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green)),
+                      ),
+                      onChanged: (value) => email = value,
                     ),
                     SizedBox(height: 20.0),
                     TextField(
                       decoration: InputDecoration(
-                          labelText: 'PASSWORD',
-                          labelStyle: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green))),
+                        labelText: 'PASSWORD',
+                        labelStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green)),
+                      ),
                       obscureText: true,
+                      onChanged: (value) => password = value,
                     ),
                     SizedBox(height: 80.0),
                     Container(
@@ -76,10 +87,22 @@ class _LoginState extends State<Login> {
                       child: Material(
                         borderRadius: BorderRadius.circular(20.0),
                         shadowColor: Colors.greenAccent,
-                        color: Colors.green,
+                        color: maincolore,
                         elevation: 7.0,
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            AuthServises().login(email, password).then((val) {
+                              if (val.data['token'].length > 0) {
+                                token = val.data['token'];
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => QuizTest(),
+                                  ),
+                                );
+                              }
+                            });
+                          },
                           child: Center(
                             child: Text(
                               'LOGIN',
@@ -111,7 +134,7 @@ class _LoginState extends State<Login> {
                   child: Text(
                     'Register',
                     style: TextStyle(
-                        color: Colors.green,
+                        color: maincolore,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline),
@@ -122,7 +145,6 @@ class _LoginState extends State<Login> {
             SizedBox(height: 50.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Text(
                   'BY ',
@@ -136,7 +158,7 @@ class _LoginState extends State<Login> {
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     color: Colors.black,
-                    fontSize: 34,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
