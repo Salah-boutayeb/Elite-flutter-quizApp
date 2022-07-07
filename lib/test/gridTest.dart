@@ -5,7 +5,7 @@ class Grid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Grid List';
+    /* const title = 'Grid List'; */
 
     return Scaffold(
       /* appBar: AppBar(

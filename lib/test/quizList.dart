@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_login/models/quizModel.dart';
+
 import 'package:dio/dio.dart';
 
 import 'package:flutter_ui_login/constant.dart';

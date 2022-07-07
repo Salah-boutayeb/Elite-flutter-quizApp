@@ -1,8 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_ui_login/constant.dart';
-import 'package:flutter_ui_login/models/userModel.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthServises {
   Dio dio = new Dio();
@@ -20,7 +17,6 @@ class AuthServises {
   }
 
   signup(name, email, password) async {
-    final prefs = await SharedPreferences.getInstance();
     try {
       return await dio.post(
         '${url}users/signup',

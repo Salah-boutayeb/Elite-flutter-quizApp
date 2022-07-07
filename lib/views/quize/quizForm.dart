@@ -68,14 +68,14 @@ class _AddQuizState extends State<AddQuiz> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Home(user: user),
+                builder: (context) => Home(user: widget.user),
               ),
             );
           } else if (i == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Categories(user: user),
+                builder: (context) => Categories(user: widget.user),
               ),
             );
           } else {

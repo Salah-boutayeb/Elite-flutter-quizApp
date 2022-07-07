@@ -3,9 +3,6 @@ import 'package:flutter_ui_login/constant.dart';
 import 'package:flutter_ui_login/models/userModel.dart';
 import 'package:flutter_ui_login/services/authservises.dart';
 import 'package:flutter_ui_login/views/quize/categories.dart';
-import 'package:flutter_ui_login/views/quize/home.dart';
-//import 'package:flutter_ui_login/views/quize/home.dart';
-import 'package:flutter_ui_login/views/quize/questions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {

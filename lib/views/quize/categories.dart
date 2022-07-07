@@ -8,7 +8,7 @@ import 'package:flutter_ui_login/views/authentication/login.dart';
 import 'package:flutter_ui_login/views/quize/home.dart';
 import 'package:flutter_ui_login/views/quize/questions.dart';
 import 'package:flutter_ui_login/views/quize/quizForm.dart';
-import 'package:flutter_ui_login/test/quizList.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Categories extends StatefulWidget {
@@ -216,10 +216,11 @@ class _CategoriesState extends State<Categories> {
                 child: const Text("submit"),
                 onPressed: () {
                   print(newVal);
-                  print("salaaaaaaaaaaaaaaaaaaaaaaaaaaah fuuuuuuuuuuuuuuuuck");
-                  addCategory(newVal);
-
-                  // updateCategory(idCategory, newVal);
+                  if (categoryName == null || idCategory == null) {
+                    addCategory(newVal);
+                  } else {
+                    updateCategory(idCategory, newVal);
+                  }
 
                   newVal = "";
                   Navigator.of(context).pushAndRemoveUntil(

@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Home extends StatelessWidget {
   const Home({Key key, this.user}) : super(key: key);
   final User user;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +21,6 @@ class Home extends StatelessWidget {
           //optional, default as 0
 
           onTap: (int i) async {
-            final prefs = await SharedPreferences.getInstance();
-
             if (i == 0) {
               Navigator.push(
                 context,

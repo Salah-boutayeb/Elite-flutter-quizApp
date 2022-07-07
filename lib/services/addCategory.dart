@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_ui_login/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CRUDService {
@@ -7,12 +8,12 @@ class CRUDService {
   addQuiz(
       {String question, Map<String, dynamic> answers, String category}) async {
     final prefs = await SharedPreferences.getInstance();
-
+    print(prefs.getString("token"));
     dio.options.headers['content-Type'] = 'application/json';
     dio.options.headers["authorization"] = "Bearer ${prefs.getString("token")}";
     try {
       return await dio.post(
-        'http://localhost:5555/api/quiz',
+        '${url}quiz',
         data: {
           "question": question,
           "answers": answers,
@@ -22,14 +23,5 @@ class CRUDService {
     } catch (e) {
       print(e.message);
     }
-  }
-
-  addCategories() async {
-    try {
-      return await dio.post(
-        'http://localhost:5555/api/',
-        data: {},
-      );
-    } catch (e) {}
   }
 }
