@@ -41,6 +41,7 @@ class _QuizTestState extends State<QuizTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(title: Text("widget.user")),
         backgroundColor: pripmaryColor,
         body: Padding(
           padding: const EdgeInsets.all(18.0),

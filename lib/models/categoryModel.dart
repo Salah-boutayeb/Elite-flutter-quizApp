@@ -13,26 +13,29 @@ Future<List<Category>> getcategories() async {
   List<Category> categories = [];
   final prefs = await SharedPreferences.getInstance();
   try {
-    dio.options.headers['content-Type'] = 'application/json';
     dio.options.headers["authorization"] = "Bearer ${prefs.getString("token")}";
     await dio
         .get(
           '${url}categories',
         )
         .then((value) => {
-              print(value),
-              for (var category in value.data)
+              if (value.statusCode == 200)
                 {
-                  {
-                    print(category['name']),
-                    categories.add(
-                      new Category(
-                        name: category['name'],
-                        id: category['_id'],
-                      ),
-                    )
-                  }
+                  print(value),
+                  for (var category in value.data)
+                    {
+                      {
+                        categories.add(
+                          new Category(
+                            name: category['name'],
+                            id: category['_id'],
+                          ),
+                        )
+                      }
+                    }
                 }
+              else
+                {print("no category found")}
             });
     return categories;
   } on DioError catch (e) {

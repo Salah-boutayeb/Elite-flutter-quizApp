@@ -32,6 +32,7 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: secondaryColor,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           // Add your onPressed code here!
@@ -39,7 +40,7 @@ class _CategoriesState extends State<Categories> {
             context,
           );
         },
-        backgroundColor: Colors.green,
+        backgroundColor: maincolore1,
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: ConvexAppBar(
@@ -55,14 +56,14 @@ class _CategoriesState extends State<Categories> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Home(user: user),
+                builder: (context) => Home(user: widget.user),
               ),
             );
           } else if (i == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Categories(user: user),
+                builder: (context) => Categories(user: widget.user),
               ),
             );
           } else {
@@ -87,11 +88,12 @@ class _CategoriesState extends State<Categories> {
             );
           }
           return ListView.builder(
+            padding: EdgeInsets.symmetric(vertical: 50, horizontal: 25),
             itemCount: snapshot.data.length,
             itemBuilder: (BuildContext context, index) => InkWell(
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(width: 2.0, color: maincolore),
+                  border: Border.all(width: 2.0, color: pripmaryColor),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 padding: EdgeInsets.fromLTRB(50, 25, 15, 25),
@@ -213,11 +215,10 @@ class _CategoriesState extends State<Categories> {
               ElevatedButton(
                 child: const Text("submit"),
                 onPressed: () {
-                  if (idCategory != null && categoryName != null) {
-                    updateCategory(idCategory, newVal);
-                  } else {
-                    addCategory(newVal);
-                  }
+                  print(newVal);
+                  print("salaaaaaaaaaaaaaaaaaaaaaaaaaaah fuuuuuuuuuuuuuuuuck");
+                  addCategory(newVal);
+
                   // updateCategory(idCategory, newVal);
 
                   newVal = "";

@@ -97,6 +97,7 @@ class _LoginState extends State<Login> {
                           onTap: () async {
                             final prefs = await SharedPreferences.getInstance();
                             AuthServises().login(email, password).then((value) {
+                              print(value);
                               if (value.data['token'].length > 0) {
                                 token = value.data['token'];
 
