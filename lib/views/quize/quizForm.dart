@@ -225,6 +225,7 @@ class _AddQuizState extends State<AddQuiz> {
                               },
                             );
                         clearText();
+                        //optional
                         answers = new Map<String, dynamic>();
                       },
                       child: Center(
