@@ -1,7 +1,7 @@
-import 'dart:convert';
-
 //import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
+import 'package:flutter_ui_login/constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Question {
   String question;
@@ -13,29 +13,16 @@ class Question {
       );
 }
 
-Future<List<Question>> getQuetions() async {
-  /* final response = await http.get(
-    Uri.parse('http://192.168.0.167:5555/api/quiz'),
-  );
-  if (response.statusCode == 200) {
-    var jsonResponse = json.decode(response.body);
-    List<Question> question = [];
-    for (var u in jsonResponse) {
-      Question user = Question(question: u['question'], answers: u['answers']);
-
-      question.add(user);
-    }
-    return question;
-  } else {
-    throw Exception('Failed to load post');
-  } */
+Future<List<Question>> getQuestions(id) async {
   Dio dio = new Dio();
   List<Question> questions = [];
-
+  final prefs = await SharedPreferences.getInstance();
   try {
+    dio.options.headers['content-Type'] = 'application/json';
+    dio.options.headers["authorization"] = "Bearer ${prefs.getString("token")}";
     await dio
         .get(
-          'http://192.168.1.21:5555/api/quiz',
+          '${url}quiz/questions?idCategory=${id}',
         )
         .then((value) => {
               for (var quiz in value.data)
@@ -43,7 +30,9 @@ Future<List<Question>> getQuetions() async {
                   print(quiz),
                   questions.add(
                     new Question(
-                        question: quiz['question'], answers: quiz['answers']),
+                      question: quiz['question'],
+                      answers: quiz['answers'],
+                    ),
                   )
                 }
             });

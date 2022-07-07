@@ -1,43 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_login/constant.dart';
+import 'package:flutter_ui_login/models/userModel.dart';
 import 'package:flutter_ui_login/services/addCategory.dart';
-import 'package:flutter_ui_login/test/dropdownapi.dart';
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:flutter_ui_login/views/authentication/login.dart';
+import 'package:flutter_ui_login/views/quize/categories.dart';
+import 'package:flutter_ui_login/views/quize/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddQuiz extends StatefulWidget {
-  const AddQuiz({Key key}) : super(key: key);
-
+  final categoryid;
+  const AddQuiz({Key key, this.categoryid, this.user}) : super(key: key);
+  final User user;
   @override
   State<AddQuiz> createState() => _AddQuizState();
 }
 
 class _AddQuizState extends State<AddQuiz> {
   String mySelection;
-
-  final String url = "http://192.168.1.14:5555/api/categories";
-
-  List data = [];
-
-  Future<String> getSWData() async {
-    var res =
-        await http.get(Uri.parse(url), headers: {"Accept": "application/json"});
-    var resBody = json.decode(res.body);
-    print(resBody);
-    setState(() {
-      data = resBody;
-    });
-
-    print(resBody);
-
-    return "Sucess";
-  }
+  User user;
 
   @override
   void initState() {
     super.initState();
-    this.getSWData();
+    user = widget.user;
+
+    mySelection = widget.categoryid;
   }
 
   String question;
@@ -65,6 +54,42 @@ class _AddQuizState extends State<AddQuiz> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
+      bottomNavigationBar: ConvexAppBar(
+        items: [
+          TabItem(icon: Icons.home, title: 'Home'),
+          TabItem(icon: Icons.category, title: 'Quiz'),
+          TabItem(icon: Icons.logout_outlined, title: 'logout'),
+        ],
+        //optional, default as 0
+        onTap: (int i) async {
+          final prefs = await SharedPreferences.getInstance();
+
+          if (i == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Home(user: user),
+              ),
+            );
+          } else if (i == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Categories(user: user),
+              ),
+            );
+          } else {
+            prefs.setString("token", null);
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Login(),
+              ),
+            );
+          }
+        },
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -89,23 +114,6 @@ class _AddQuizState extends State<AddQuiz> {
             padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
             child: Column(
               children: <Widget>[
-                Container(
-                  child: new DropdownButton(
-                    hint: Text("Categories"),
-                    value: mySelection,
-                    items: data.map((item) {
-                      return new DropdownMenuItem(
-                        child: new Text(item['name']),
-                        value: item['id'].toString(),
-                      );
-                    }).toList(),
-                    onChanged: (newVal) {
-                      setState(() {
-                        mySelection = newVal;
-                      });
-                    },
-                  ),
-                ),
                 TextField(
                   onChanged: (value) => question = value,
                   decoration: InputDecoration(
@@ -189,9 +197,10 @@ class _AddQuizState extends State<AddQuiz> {
                   ),
                   controller: answer3,
                 ),
-                SizedBox(height: 90.0),
+                SizedBox(height: 40.0),
                 Container(
                   height: 40.0,
+                  width: 100,
                   child: Material(
                     borderRadius: BorderRadius.circular(20.0),
                     shadowColor: Colors.greenAccent,
@@ -215,7 +224,8 @@ class _AddQuizState extends State<AddQuiz> {
                                 print(value),
                               },
                             );
-                        clearText();
+                        //clearText();
+                        answers = new Map<String, dynamic>();
                       },
                       child: Center(
                         child: Text(

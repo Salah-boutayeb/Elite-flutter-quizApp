@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_login/constant.dart';
+import 'package:flutter_ui_login/models/userModel.dart';
 import 'package:flutter_ui_login/services/authservises.dart';
+import 'package:flutter_ui_login/views/quize/categories.dart';
+import 'package:flutter_ui_login/views/quize/home.dart';
 //import 'package:flutter_ui_login/views/quize/home.dart';
 import 'package:flutter_ui_login/views/quize/questions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({Key key}) : super(key: key);
@@ -90,14 +94,27 @@ class _LoginState extends State<Login> {
                         color: maincolore,
                         elevation: 7.0,
                         child: GestureDetector(
-                          onTap: () {
-                            AuthServises().login(email, password).then((val) {
-                              if (val.data['token'].length > 0) {
-                                token = val.data['token'];
+                          onTap: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            AuthServises().login(email, password).then((value) {
+                              if (value.data['token'].length > 0) {
+                                token = value.data['token'];
+
+                                var user = User(
+                                  id: value.data['id'],
+                                  name: value.data['name'],
+                                  email: value.data['email'],
+                                  score: value.data['score'],
+                                );
+                                prefs.setString("token", value.data['token']);
+                                print(prefs.getString("token"));
+
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => QuizTest(),
+                                    builder: (context) => Categories(
+                                      user: user,
+                                    ),
                                   ),
                                 );
                               }

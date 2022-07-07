@@ -1,25 +1,24 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_login/models/quizModel.dart';
+import 'package:dio/dio.dart';
+
 import 'package:flutter_ui_login/constant.dart';
 import 'package:flutter_ui_login/models/categoryModel.dart';
 import 'package:flutter_ui_login/models/userModel.dart';
-import 'package:flutter_ui_login/views/authentication/login.dart';
-import 'package:flutter_ui_login/views/quize/home.dart';
+import 'package:flutter_ui_login/views/quize/categories.dart';
 import 'package:flutter_ui_login/views/quize/questions.dart';
 import 'package:flutter_ui_login/views/quize/quizForm.dart';
-import 'package:flutter_ui_login/test/quizList.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Categories extends StatefulWidget {
-  const Categories({Key key, this.user}) : super(key: key);
+class QuizList extends StatefulWidget {
+  const QuizList({Key key, this.user}) : super(key: key);
   final user;
-
   @override
-  State<Categories> createState() => _CategoriesState();
+  State<QuizList> createState() => _QuizListState();
 }
 
-class _CategoriesState extends State<Categories> {
+class _QuizListState extends State<QuizList> {
   Future<List<Category>> categories;
   User user;
   var newVal;
@@ -32,49 +31,6 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // Add your onPressed code here!
-          await _showTextInputDialog(
-            context,
-          );
-        },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.add),
-      ),
-      bottomNavigationBar: ConvexAppBar(
-        items: [
-          TabItem(icon: Icons.home, title: 'Home'),
-          TabItem(icon: Icons.category, title: 'Quiz'),
-          TabItem(icon: Icons.logout_outlined, title: 'logout'),
-        ],
-        //optional, default as 0
-        initialActiveIndex: 1,
-        onTap: (int i) async {
-          if (i == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Home(user: user),
-              ),
-            );
-          } else if (i == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Categories(user: user),
-              ),
-            );
-          } else {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Login(),
-              ),
-            );
-          }
-        },
-      ),
       body: FutureBuilder(
         future: categories,
         builder: (
@@ -91,7 +47,8 @@ class _CategoriesState extends State<Categories> {
             itemBuilder: (BuildContext context, index) => InkWell(
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(width: 2.0, color: maincolore),
+                  border: Border.all(
+                      width: 2.0, color: Color.fromARGB(255, 21, 17, 17)),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 padding: EdgeInsets.fromLTRB(50, 25, 15, 25),
@@ -158,7 +115,6 @@ class _CategoriesState extends State<Categories> {
                                 MaterialPageRoute(
                                   builder: (_) => AddQuiz(
                                     categoryid: snapshot.data[index].id,
-                                    user: user,
                                   ),
                                 ),
                               );
@@ -201,7 +157,7 @@ class _CategoriesState extends State<Categories> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Category"),
+            title: Text("update : ${categoryName}"),
             content: TextField(
               controller: _textFieldController,
               decoration: const InputDecoration(hintText: "new category name"),
@@ -211,15 +167,10 @@ class _CategoriesState extends State<Categories> {
             ),
             actions: <Widget>[
               ElevatedButton(
-                child: const Text("submit"),
+                child: const Text("update"),
                 onPressed: () {
-                  if (idCategory != null && categoryName != null) {
-                    updateCategory(idCategory, newVal);
-                  } else {
-                    addCategory(newVal);
-                  }
-                  // updateCategory(idCategory, newVal);
-
+                  updateCategory(idCategory, newVal);
+                  print(newVal);
                   newVal = "";
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(

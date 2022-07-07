@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_login/constant.dart';
+import 'package:flutter_ui_login/models/userModel.dart';
 import 'package:flutter_ui_login/services/authservises.dart';
 import 'package:flutter_ui_login/views/quize/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -46,7 +48,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: Column(
                     children: <Widget>[
                       TextField(
-                        onChanged: (value) => email = value,
+                        onChanged: (val) => email = val,
                         decoration: InputDecoration(
                             labelText: 'EMAIL',
                             labelStyle: TextStyle(
@@ -60,7 +62,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 10.0),
                       TextField(
-                        onChanged: (value) => password = value,
+                        onChanged: (val) => password = val,
                         decoration: InputDecoration(
                             labelText: 'PASSWORD ',
                             labelStyle: TextStyle(
@@ -73,7 +75,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 10.0),
                       TextField(
-                        onChanged: (value) => name = value,
+                        onChanged: (val) => name = val,
                         decoration: InputDecoration(
                             labelText: 'NICK NAME ',
                             labelStyle: TextStyle(
@@ -92,17 +94,27 @@ class _SignupPageState extends State<SignupPage> {
                             color: maincolore,
                             elevation: 7.0,
                             child: GestureDetector(
-                              onTap: () {
+                              onTap: () async {
+                                final prefs =
+                                    await SharedPreferences.getInstance();
                                 AuthServises()
                                     .signup(name, email, password)
                                     .then((val) {
                                   if (val.data['token'].length > 0) {
                                     token = val.data['token'];
+                                    token = val.data['token'];
+
+                                    var user = User(
+                                      id: val.data['id'],
+                                      name: val.data['name'],
+                                      email: val.data['email'],
+                                      score: val.data['score'],
+                                    );
+                                    prefs.setString("token", val.data['token']);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            Home(user: val.data['name']),
+                                        builder: (context) => Home(user: user),
                                       ),
                                     );
                                   }

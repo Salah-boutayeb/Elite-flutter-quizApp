@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_login/constant.dart';
-import 'package:flutter_ui_login/test/dropdown.dart';
-import 'package:flutter_ui_login/test/dropdownapi.dart';
+
+import 'package:flutter_ui_login/test/profilUI.dart';
 import 'package:flutter_ui_login/views/authentication/login.dart';
 import 'package:flutter_ui_login/views/authentication/signup.dart';
+import 'package:flutter_ui_login/views/quize/home.dart';
 import 'package:flutter_ui_login/views/quize/quizForm.dart';
 import 'package:flutter_ui_login/views/quize/categories.dart';
 import 'package:flutter_ui_login/views/quize/questions.dart';
+import 'package:flutter_ui_login/test/quizList.dart';
 
 void main() => runApp(new MyApp());
 
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         '/signup': (BuildContext context) => new SignupPage(),
         '/login': (BuildContext context) => new Login()
       },
-      home: AddQuiz(),
+      home: Login(),
     );
   }
 }

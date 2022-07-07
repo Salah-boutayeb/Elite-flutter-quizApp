@@ -1,11 +1,19 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_login/constant.dart';
-
 import 'package:flutter_ui_login/models/questionModel.dart';
+import 'package:flutter_ui_login/models/userModel.dart';
+import 'package:flutter_ui_login/views/authentication/login.dart';
 import 'package:flutter_ui_login/views/quize/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'categories.dart';
 
 class QuizTest extends StatefulWidget {
-  const QuizTest({Key key}) : super(key: key);
+  final idCategory;
+
+  final user;
+  const QuizTest({Key key, this.idCategory, this.user}) : super(key: key);
 
   @override
   State<QuizTest> createState() => _QuizTestState();
@@ -19,12 +27,14 @@ class _QuizTestState extends State<QuizTest> {
   PageController _controller;
   String btnText = "Next Question";
   bool answered = false;
-
+  User user;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    questions = getQuetions();
+    user = widget.user;
+    score = widget.user.score;
+    questions = getQuestions(widget.idCategory);
     _controller = PageController(initialPage: 0);
   }
 
@@ -65,7 +75,7 @@ class _QuizTestState extends State<QuizTest> {
                             SizedBox(
                               width: double.infinity,
                               child: Text(
-                                "Question ${index + 1}/10",
+                                "Question ${index + 1}/${snapshot.data.length}",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   color: Colors.white,
@@ -113,7 +123,7 @@ class _QuizTestState extends State<QuizTest> {
                                           if (snapshot
                                               .data[index].answers.values
                                               .toList()[i]) {
-                                            score++;
+                                            score += 5;
                                             print("yes");
                                           } else {
                                             print("no");
@@ -140,11 +150,16 @@ class _QuizTestState extends State<QuizTest> {
                               onPressed: () {
                                 if (_controller.page?.toInt() ==
                                     snapshot.data.length - 1) {
-                                  Navigator.push(
+                                  updateScore(score, user.id).then((value) {
+                                    print(value);
+                                    user.score = value.data['score'];
+                                    Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              Home(user: "salah")));
+                                        builder: (context) => Home(user: user),
+                                      ),
+                                    );
+                                  });
                                 } else {
                                   _controller.nextPage(
                                       duration: Duration(milliseconds: 250),

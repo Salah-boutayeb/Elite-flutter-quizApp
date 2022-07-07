@@ -1,12 +1,16 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_ui_login/models/userModel.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthServises {
   Dio dio = new Dio();
 
   login(name, password) async {
+    //final prefs = await SharedPreferences.getInstance();
     try {
       return await dio.post(
-        'http://192.168.1.21:5555/api/users/login',
+        'http://localhost:5555/api/users/login',
         data: {"email": name, "password": password},
       );
     } on DioError catch (e) {
@@ -15,9 +19,10 @@ class AuthServises {
   }
 
   signup(name, email, password) async {
+    final prefs = await SharedPreferences.getInstance();
     try {
       return await dio.post(
-        'http://192.168.1.10:5555/api/users/signup',
+        'http://localhost:5555/api/users/signup',
         data: {"name": name, "email": email, "password": password},
       );
     } on DioError catch (e) {
