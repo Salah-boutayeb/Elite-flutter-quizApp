@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:dio/dio.dart';
 
-import 'package:flutter_ui_login/constant.dart';
-import 'package:flutter_ui_login/models/categoryModel.dart';
-import 'package:flutter_ui_login/models/userModel.dart';
-import 'package:flutter_ui_login/views/quize/categories.dart';
-import 'package:flutter_ui_login/views/quize/questions.dart';
-import 'package:flutter_ui_login/views/quize/quizForm.dart';
+import 'package:elite_quiz/constant.dart';
+import 'package:elite_quiz/models/categoryModel.dart';
+import 'package:elite_quiz/models/userModel.dart';
+import 'package:elite_quiz/views/quize/categories.dart';
+import 'package:elite_quiz/views/quize/questions.dart';
+import 'package:elite_quiz/views/quize/quizForm.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 

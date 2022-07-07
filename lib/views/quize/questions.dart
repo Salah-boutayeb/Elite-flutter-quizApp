@@ -1,10 +1,10 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_login/constant.dart';
-import 'package:flutter_ui_login/models/questionModel.dart';
-import 'package:flutter_ui_login/models/userModel.dart';
-import 'package:flutter_ui_login/views/authentication/login.dart';
-import 'package:flutter_ui_login/views/quize/home.dart';
+import 'package:elite_quiz/constant.dart';
+import 'package:elite_quiz/models/questionModel.dart';
+import 'package:elite_quiz/models/userModel.dart';
+import 'package:elite_quiz/views/authentication/login.dart';
+import 'package:elite_quiz/views/quize/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'categories.dart';
@@ -41,7 +41,9 @@ class _QuizTestState extends State<QuizTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("widget.user")),
+        appBar: AppBar(
+          title: Text("Quiz Test"),
+        ),
         backgroundColor: pripmaryColor,
         body: Padding(
           padding: const EdgeInsets.all(18.0),

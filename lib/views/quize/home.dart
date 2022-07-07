@@ -1,8 +1,8 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_login/models/userModel.dart';
-import 'package:flutter_ui_login/views/authentication/login.dart';
-import 'package:flutter_ui_login/views/quize/categories.dart';
+import 'package:elite_quiz/models/userModel.dart';
+import 'package:elite_quiz/views/authentication/login.dart';
+import 'package:elite_quiz/views/quize/categories.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatelessWidget {

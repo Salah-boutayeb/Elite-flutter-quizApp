@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_ui_login/constant.dart';
+import 'package:elite_quiz/constant.dart';
 
 class AuthServises {
   Dio dio = new Dio();

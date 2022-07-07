@@ -1,13 +1,13 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_login/constant.dart';
-import 'package:flutter_ui_login/models/categoryModel.dart';
-import 'package:flutter_ui_login/models/userModel.dart';
-import 'package:flutter_ui_login/views/authentication/login.dart';
-import 'package:flutter_ui_login/views/quize/home.dart';
-import 'package:flutter_ui_login/views/quize/questions.dart';
-import 'package:flutter_ui_login/views/quize/quizForm.dart';
+import 'package:elite_quiz/constant.dart';
+import 'package:elite_quiz/models/categoryModel.dart';
+import 'package:elite_quiz/models/userModel.dart';
+import 'package:elite_quiz/views/authentication/login.dart';
+import 'package:elite_quiz/views/quize/home.dart';
+import 'package:elite_quiz/views/quize/questions.dart';
+import 'package:elite_quiz/views/quize/quizForm.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,7 +32,7 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: secondaryColor,
+      backgroundColor: maincolore1,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           // Add your onPressed code here!
@@ -40,7 +40,7 @@ class _CategoriesState extends State<Categories> {
             context,
           );
         },
-        backgroundColor: maincolore1,
+        backgroundColor: maincolore,
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: ConvexAppBar(
@@ -93,6 +93,14 @@ class _CategoriesState extends State<Categories> {
             itemBuilder: (BuildContext context, index) => InkWell(
               child: Container(
                 decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      pripmaryColor,
+                      maincolore,
+                    ],
+                  ),
                   border: Border.all(width: 2.0, color: pripmaryColor),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
@@ -100,7 +108,13 @@ class _CategoriesState extends State<Categories> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(snapshot.data[index].name.toString().toUpperCase()),
+                    Text(
+                      snapshot.data[index].name.toString(),
+                      style: TextStyle(
+                        color: secondaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Container(
                       child: Row(
                         children: [
@@ -138,7 +152,7 @@ class _CategoriesState extends State<Categories> {
                                               .pushAndRemoveUntil(
                                             MaterialPageRoute(
                                               builder: (BuildContext context) =>
-                                                  Categories(),
+                                                  Categories(user: widget.user),
                                             ),
                                             (Route<dynamic> route) => false,
                                           )

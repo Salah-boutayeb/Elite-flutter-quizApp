@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_login/constant.dart';
-import 'package:flutter_ui_login/services/addCategory.dart';
+import 'package:elite_quiz/constant.dart';
+import 'package:elite_quiz/services/addCategory.dart';
 
 import 'dart:async';
 import 'dart:convert';

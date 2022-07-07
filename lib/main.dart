@@ -1,8 +1,8 @@
+import 'package:elite_quiz/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_login/constant.dart';
 
-import 'package:flutter_ui_login/views/authentication/login.dart';
-import 'package:flutter_ui_login/views/authentication/signup.dart';
+import 'package:elite_quiz/views/authentication/login.dart';
+import 'package:elite_quiz/views/authentication/signup.dart';
 
 void main() => runApp(new MyApp());
 

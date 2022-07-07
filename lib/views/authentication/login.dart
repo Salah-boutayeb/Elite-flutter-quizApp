@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_login/constant.dart';
-import 'package:flutter_ui_login/models/userModel.dart';
-import 'package:flutter_ui_login/services/authservises.dart';
-import 'package:flutter_ui_login/views/quize/categories.dart';
+import 'package:elite_quiz/constant.dart';
+import 'package:elite_quiz/models/userModel.dart';
+import 'package:elite_quiz/services/authservises.dart';
+import 'package:elite_quiz/views/quize/categories.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
@@ -31,18 +31,18 @@ class _LoginState extends State<Login> {
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(15.0, 30.0, 0.0, 0.0),
-                    child: Text('QUIZ',
+                    child: Text('ELITE',
                         style: TextStyle(
                             fontSize: 80.0, fontWeight: FontWeight.bold)),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(16.0, 105.0, 0.0, 0.0),
-                    child: Text('RSI',
+                    child: Text('QUIZ',
                         style: TextStyle(
                             fontSize: 80.0, fontWeight: FontWeight.bold)),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(140.0, 95.0, 0.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(220.0, 110.0, 0.0, 0.0),
                     child: Text('.',
                         style: TextStyle(
                             fontSize: 80.0,

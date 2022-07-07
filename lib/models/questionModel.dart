@@ -1,6 +1,6 @@
 //import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
-import 'package:flutter_ui_login/constant.dart';
+import 'package:elite_quiz/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Question {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_login/constant.dart';
-import 'package:flutter_ui_login/models/userModel.dart';
-import 'package:flutter_ui_login/services/authservises.dart';
-import 'package:flutter_ui_login/views/quize/home.dart';
+import 'package:elite_quiz/constant.dart';
+import 'package:elite_quiz/models/userModel.dart';
+import 'package:elite_quiz/services/authservises.dart';
+import 'package:elite_quiz/views/quize/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatefulWidget {
