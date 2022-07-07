@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ui_login/constant.dart';
 import 'package:flutter_ui_login/models/userModel.dart';
 import 'package:flutter_ui_login/services/authservises.dart';
-import 'package:flutter_ui_login/views/authentication/login.dart';
-
+import 'package:flutter_ui_login/views/quize/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatefulWidget {
@@ -115,7 +114,7 @@ class _SignupPageState extends State<SignupPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Login(),
+                                        builder: (context) => Home(user: user),
                                       ),
                                     );
                                   }

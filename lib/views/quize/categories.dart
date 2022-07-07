@@ -217,18 +217,30 @@ class _CategoriesState extends State<Categories> {
                 onPressed: () {
                   print(newVal);
                   if (categoryName == null || idCategory == null) {
-                    addCategory(newVal);
+                    addCategory(newVal).then((val) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => Categories(
+                            user: widget.user,
+                          ),
+                        ),
+                        (Route<dynamic> route) => false,
+                      );
+                    });
                   } else {
-                    updateCategory(idCategory, newVal);
+                    updateCategory(idCategory, newVal).then((val) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => Categories(
+                            user: widget.user,
+                          ),
+                        ),
+                        (Route<dynamic> route) => false,
+                      );
+                    });
                   }
 
                   newVal = "";
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => Categories(),
-                    ),
-                    (Route<dynamic> route) => false,
-                  );
                 },
               ),
             ],
