@@ -224,7 +224,7 @@ class _AddQuizState extends State<AddQuiz> {
                                 print(value),
                               },
                             );
-                        //clearText();
+                        clearText();
                         answers = new Map<String, dynamic>();
                       },
                       child: Center(
